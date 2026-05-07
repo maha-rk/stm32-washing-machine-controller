@@ -1,48 +1,138 @@
-# ELEC1620 Unit 4 - Lab 4 - Assessment Template
+# STM32 Washing Machine Control Panel
 
+Embedded system project using the STM32L476RG Nucleo-64 microcontroller.
 
+---
 
-The most important file is `main.c` which is found in `Core/Src/main.c` 
+## 📌 Project Overview
 
+This system simulates a washing machine control panel with:
 
+- Power control  
+- Cycle selection (Quick / Normal / Heavy)  
+- Temperature-based safety check  
+- Sequential execution of wash phases  
+- Real-time serial monitoring  
 
-## Setup
+The user interacts using buttons and a potentiometer, while system state is displayed through LEDs and a 7-segment display.
 
-Make sure you open the folder that contains:
+---
+
+## 🖼️ System Overview
+
+![System Overview](Project_Overview_Figure.png)
+
+---
+
+## ⚙️ System Design
+
+The system follows a **finite state machine approach** inside a continuous loop:
+
+- Inputs are read continuously (buttons, ADC)
+- System state is evaluated
+- Outputs update accordingly (LEDs, serial, buzzer)
+
+### Key Design Aspects:
+- Edge-detected button input  
+- ADC-based sensing (LM35 + potentiometer)  
+- Sequential phase execution  
+- UART-based status output  
+
+---
+
+## 🧠 Design Flow
+
+![Design Flow](Project_Design.png)
+
+---
+
+## 🔧 Hardware Mapping
+
+| Component | Pin |
+|----------|-----|
+| Power LED | PA4 |
+| Wash LED | PB0 |
+| Rinse LED | PC1 |
+| Spin LED (Red) | PC0 |
+| Button 1 (Power) | PC10 |
+| Button 2 (Cycle) | PC11 |
+| Button 3 (Run) | PD2 |
+| LM35 Sensor | PC3 |
+| Potentiometer | PA5 |
+
+---
+
+## 📁 Project Structure
+
+The main logic is implemented in: Core/Src/main.c
+
+---
+
+## ⚙️ Setup & Build Instructions
+
+1. Open the project folder containing:
 
 Core
 Drivers
 CMakeLists.txt
 
-When prompted:
+2. When prompted:
+> "Would you like to configure discovered CMake project as STM32Cube project?"
 
-"Would you like to configure discovered CMake project as STM32Cube project?"
+👉 Select **Yes**
 
-Select Yes.
+3. Choose **Debug configuration**
 
-Choose the Debug configuration if prompted
+4. Click **Build** to verify compilation
 
-Click Build to check the project compiles
+5. Check that the board is detected under:
 
-Check the board is detected under "STM32CUBE Devices and Boards"
+STM32CUBE Devices and Boards
 
-Click Run and Debug
+6. Click **Run and Debug**
 
-Select STM32Cube: STLink GDB Server
+7. Select:
 
-Press F5 (or the green arrow) to run past breakpoints
+STM32Cube: STLink GDB Server
 
+8. Press:
 
-## Troubleshooting
+F5
+to run the program
 
-**Board not detected:**
-- Ensure the ST-Link drivers are installed
-- Check the USB cable is properly connected (use the USB connector labeled "USB ST-LINK")
-- Try a different USB port or cable
-- Check under "STM32CUBE Devices and Boards" in the Run and Debug page
+---
 
-**Build errors:**
-- Make sure you selected "Yes" when asked to configure the project as an STM32Cube project
-- Try cleaning the build folder and rebuilding
-- Check that the Debug configuration is selected
+## 🚀 Features
 
+- Power toggle with LED indicator  
+- Cycle selection using 7-segment display  
+- Temperature threshold check  
+- Wash → Rinse → Spin sequence  
+- Serial output with system status  
+- Buzzer feedback on completion  
+- Error handling with LED flashing  
+
+---
+
+## ⚠️ Troubleshooting
+
+### Board not detected
+- Ensure ST-Link drivers are installed  
+- Use the correct USB port (**USB ST-LINK**)  
+- Try a different cable or port  
+- Check device under STM32Cube run panel  
+
+---
+
+### Build errors
+- Ensure project was configured as STM32Cube project  
+- Clean and rebuild the project  
+- Confirm Debug configuration is selected  
+
+---
+
+## ⚡ Stack
+
+- C (STM32 HAL)  
+- GPIO / ADC / UART  
+- Embedded system design  
